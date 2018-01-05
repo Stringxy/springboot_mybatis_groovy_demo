@@ -5,6 +5,7 @@ import com.xiaoleilu.hutool.http.HttpUtil;
 import com.xy.wxxcx.entity.User;
 import com.xy.wxxcx.mapper.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,8 +14,10 @@ import java.util.List;
  */
 @Component
 public class UserService {
-    private static final String APPID="xx";
-    private static final String SECRET="xx";
+    @Value("${xcx.appid}")
+    private String APPID;
+    @Value("${xcx.secret}")
+    private String SECRET;
     private static final String OPENIDAPI="https://api.weixin.qq.com/sns/jscode2session?appid=";
     @Autowired
     private UserDao userDao;
