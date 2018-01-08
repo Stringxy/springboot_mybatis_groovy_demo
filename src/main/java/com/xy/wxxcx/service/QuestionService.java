@@ -27,7 +27,7 @@ public class QuestionService {
     }
 
     private  static int getRandom(List<Integer> list){
-        int number=random.nextInt(random.nextInt(74)+1);
+        int number=random.nextInt(74)+1;
         if(list.contains(random)){
             QuestionService.getRandom(list);
         }
@@ -36,7 +36,7 @@ public class QuestionService {
 
     private String listToStr(List<Integer> list){
         StringBuffer stringBuffer=new StringBuffer();
-        list.forEach(integer -> stringBuffer.append(integer+','));
+        list.forEach(integer -> stringBuffer.append(integer).append(','));
         stringBuffer.deleteCharAt(stringBuffer.length()-1);
         return stringBuffer.toString();
     }

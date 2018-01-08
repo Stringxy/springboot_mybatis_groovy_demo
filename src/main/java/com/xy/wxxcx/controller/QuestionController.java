@@ -5,13 +5,13 @@ import com.xy.wxxcx.entity.Question;
 import com.xy.wxxcx.service.QuestionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author xy
@@ -24,7 +24,7 @@ import java.util.Map;
 public class QuestionController {
     @Autowired
     private QuestionService questionService;
-    private Logger logger = Logger.getLogger(QuestionController.class);
+    private Logger logger= LoggerFactory.getLogger(QuestionController.class);
     @GetMapping(value = "/get/{examId}")
     @ResponseBody
     @ApiOperation(value = "获取随机试题")

@@ -14,7 +14,7 @@ public class CommonSQLProvider {
                 SELECT("*");
                 FROM(tableName);
                 if (params != null) {
-                    params.forEach((k, v) -> WHERE(k + "=" + v));
+                    params.forEach((k, v) -> WHERE(k + "= #{" + k+"}"));
                 }
             }
         }.toString();
