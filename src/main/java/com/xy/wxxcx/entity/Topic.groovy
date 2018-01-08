@@ -11,7 +11,7 @@ class Topic {
     String openid
     String avatar
     String img
-    Date create_time
+    Date createTime
     int comments
     int views
     String nick_name
@@ -27,7 +27,7 @@ class Topic {
                 ", openid='" + openid + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", img='" + img + '\'' +
-                ", create_time=" + create_time +
+                ", create_time=" + createTime +
                 ", comments=" + comments +
                 ", views=" + views +
                 ", nick_name='" + nick_name + '\'' +
