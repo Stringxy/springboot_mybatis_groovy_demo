@@ -16,12 +16,15 @@ interface UserDao {
 
     @Insert(//language=MySQL
             '''
-            INSERT INTO user 
-            (username,password,avatar_url,city,code,country,gender,language,nick_name,province)
-             VALUES(#{username}, #{password}, #{avatarUrl}, #{city}, #{code}, #{country}, #{gender}, #{language}, #{nickName}, #{province})
+            INSERT INTO t_user_weixin 
+            (username,password,avatar_url,city,country,gender,language,nick_name,province,email,openid)
+             VALUES(#{username}, #{password}, #{avatarUrl}, #{city}, #{country}, #{gender}, #{language}, #{nickName}, #{province},#{email},#{openid})
             ''')
     int insert(User user)
 
-    @Select("SELECT * FROM t_user_weixin where openid=#{openId}")
+    @Select("SELECT username,password,avatar_url as avatarUrl,city,country,gender,language,nick_name as nickName,province,email,openid,id FROM t_user_weixin where openid=#{openId}")
     User findByOpenId(@Param("openId")String openId)
+
+    @Select("SELECT username,password,avatar_url as avatarUrl,city,country,gender,language,nick_name as nickName,province,email,openid,id FROM t_user_weixin where username=#{username} and password=#{password} limit 0,1")
+    User login(@Param("username")String username,@Param("password")String password)
 }

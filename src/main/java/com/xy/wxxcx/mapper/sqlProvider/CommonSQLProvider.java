@@ -14,7 +14,7 @@ public class CommonSQLProvider {
                 SELECT("*");
                 FROM(tableName);
                 if (params != null) {
-                    params.forEach((k, v) -> WHERE(k + "= #{" + k+"}"));
+                    params.forEach((k, v) -> WHERE(k + "= '" + v+"'"));
                 }
             }
         }.toString();
@@ -24,7 +24,7 @@ public class CommonSQLProvider {
         return new SQL() {
             {
                 INSERT_INTO(tableName);
-                params.forEach((k, v) -> VALUES(k, String.valueOf(v)));
+                params.forEach((k, v) -> VALUES(k, "'"+v+"'"));
             }
         }.toString();
     }

@@ -15,10 +15,11 @@ class Topic {
     int comments
     int views
     String nick_name
+    int userid
 
 
     @Override
-    String toString() {
+    public String toString() {
         return "Topic{" +
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
@@ -27,10 +28,11 @@ class Topic {
                 ", openid='" + openid + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", img='" + img + '\'' +
-                ", create_time=" + createTime +
+                ", createTime=" + createTime +
                 ", comments=" + comments +
                 ", views=" + views +
                 ", nick_name='" + nick_name + '\'' +
+                ", userid=" + userid +
                 '}'
     }
 }
