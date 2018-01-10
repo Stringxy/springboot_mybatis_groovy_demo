@@ -27,7 +27,6 @@ public class CommentController {
     @ApiOperation(value = "新增评论")
     BaseResp add(@RequestBody Comment comment) {
         BaseResp baseResp = new BaseResp();
-        logger.info("------->>新增评论：comment:" + comment.toString());
         try {
             if (commentService.insert(comment)) {
                 BaseResp.setResp(true, baseResp);

@@ -4,7 +4,7 @@ package com.xy.wxxcx.entity
  * @author xy
  */
 class Comment {
-    String id
+    long id
     String content
     String openid
     String avatar

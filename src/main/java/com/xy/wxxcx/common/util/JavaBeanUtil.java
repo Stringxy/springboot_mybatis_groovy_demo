@@ -63,6 +63,9 @@ public class JavaBeanUtil {
      * @return 转换后的字符串
      */
     public static String camel2Underline(String line){
+        if(line.contains("_")){
+            return line;
+        }
         if(line==null||"".equals(line)){
             return "";
         }

@@ -53,7 +53,7 @@ public class TopicService {
             return null;
         }
         Map<String, Object> topic=topics.get(0);
-        topic.put("author",userDao.findById((Long) topic.get("userid")));
+        topic.put("author",userDao.findById(Long.parseLong(topic.get("userid").toString())));
         topic.put("comment",commentService.findByTopicId(id));
         return topic;
     }
