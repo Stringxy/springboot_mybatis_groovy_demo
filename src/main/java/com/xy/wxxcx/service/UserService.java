@@ -61,4 +61,6 @@ public class UserService {
         user.setOpenid(getOpenId(user.getCode()));
         return userDao.insert(user) > 0;
     }
+
+
 }

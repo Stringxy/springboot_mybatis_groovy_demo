@@ -10,5 +10,6 @@ class Comment {
     String avatar
     Date create_time
     String nick_name
-    String topicid;
+    String topicid
+    long userid
 }

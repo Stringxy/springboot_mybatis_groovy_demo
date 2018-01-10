@@ -28,4 +28,14 @@ public class CommonSQLProvider {
             }
         }.toString();
     }
+
+    public String commonUpdate(String tableName,Map<String, Object> setParams,Map<String, Object> whereParams){
+        return new SQL(){
+            {
+                UPDATE(tableName);
+                setParams.forEach((k, v) ->SET(k+"="+v+"") );
+                whereParams.forEach((k,v)-> WHERE(k + "= '" + v+"'"));
+            }
+        }.toString();
+    }
 }

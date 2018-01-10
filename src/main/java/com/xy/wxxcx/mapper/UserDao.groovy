@@ -27,4 +27,7 @@ interface UserDao {
 
     @Select("SELECT username,password,avatar_url as avatarUrl,city,country,gender,language,nick_name as nickName,province,email,openid,id FROM t_user_weixin where username=#{username} and password=#{password} limit 0,1")
     User login(@Param("username")String username,@Param("password")String password)
+
+    @Select("SELECT username,password,avatar_url as avatarUrl,city,country,gender,language,nick_name as nickName,province,email,openid,id FROM t_user_weixin where id=#{id} limit 0,1")
+    User findById(@Param("id")long id)
 }
