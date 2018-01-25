@@ -11,7 +11,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -128,18 +127,14 @@ public class TopicController {
 
     /**
      * 单文件上传
-     *
-     * @param file
-     * @param request
-     * @return
      */
     @PostMapping("/upload")
     @ResponseBody
-    public BaseResp upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+    public BaseResp upload(@RequestParam("file") MultipartFile file) {
         BaseResp baseResp = new BaseResp();
         if (!file.isEmpty()) {
-            String saveFileName = file.getOriginalFilename();
-            File saveFile = new File(request.getSession().getServletContext().getRealPath("/upload/") + saveFileName);
+            String saveFileName = System.currentTimeMillis()+file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
+            File saveFile = new File("/usr/java/tomcat/apache-tomcat-8.5.16/webapps/img/" + saveFileName);
             if (!saveFile.getParentFile().exists()) {
                 saveFile.getParentFile().mkdirs();
             }
