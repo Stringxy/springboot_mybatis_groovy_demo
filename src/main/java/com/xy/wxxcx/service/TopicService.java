@@ -31,8 +31,6 @@ public class TopicService {
     private TopicDao topicDao;
 
     public List<Map<String, Object>> findAll(int cate, int pageNo, int pageSize, long userid) {
-        PageHelper.startPage(pageNo, pageSize);
-        PageHelper.orderBy("create_time desc");
         Map<String, Object> params = new HashMap<>();
         if (cate != 0) {
             params.put("cate", cate);
@@ -40,7 +38,9 @@ public class TopicService {
         if (userid != 0) {
             params.put("userid", userid);
         }
-        return commonDao.select("t_topic_weixin", params);
+        PageHelper.startPage(pageNo, pageSize,"create_time DESC");
+        List<Map<String, Object>> list=commonDao.select("t_topic_weixin", params);
+        return list;
     }
 
     @Transactional(rollbackFor = Exception.class)
