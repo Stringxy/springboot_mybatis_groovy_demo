@@ -138,8 +138,8 @@ public class TopicController {
     public BaseResp upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
         BaseResp baseResp = new BaseResp();
         if (!file.isEmpty()) {
-            String saveFileName = file.getOriginalFilename();
-            File saveFile = new File(request.getSession().getServletContext().getRealPath("/upload/") + saveFileName);
+            String saveFileName = System.currentTimeMillis()+file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
+            File saveFile = new File("/usr/java/tomcat/apache-tomcat-8.5.16/webapps/img/" + saveFileName);
             if (!saveFile.getParentFile().exists()) {
                 saveFile.getParentFile().mkdirs();
             }
@@ -162,5 +162,25 @@ public class TopicController {
             baseResp.setDetail("上传失败，因为文件为空.");
             return baseResp;
         }
+    }
+
+    @GetMapping(value = "/getCommented/{userid}/{pageNo}")
+    @ResponseBody
+    @ApiOperation(value = "获取参与的日志")
+    BaseResp getCommented(@PathVariable long userid, @PathVariable int pageNo) {
+        BaseResp baseResp = new BaseResp();
+        logger.info("------->>获取参与的日志：userid:" + userid);
+        try {
+            List<Topic> topics = topicService.getCommentedTopic(userid,pageNo);
+            if (null != topics) {
+                BaseResp.setResp(true, baseResp);
+                baseResp.setDetail(topics);
+                return baseResp;
+            }
+        } catch (Exception e) {
+            logger.error("---->>  获取个人日志 faild", e);
+        }
+        BaseResp.setResp(false, baseResp);
+        return baseResp;
     }
 }

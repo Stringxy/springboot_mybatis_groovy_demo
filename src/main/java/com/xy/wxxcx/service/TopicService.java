@@ -1,9 +1,11 @@
 package com.xy.wxxcx.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.util.StringUtil;
 import com.xy.wxxcx.common.util.JavaBeanUtil;
 import com.xy.wxxcx.entity.Topic;
 import com.xy.wxxcx.mapper.CommonDao;
+import com.xy.wxxcx.mapper.TopicDao;
 import com.xy.wxxcx.mapper.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,6 +27,8 @@ public class TopicService {
     private UserDao userDao;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private TopicDao topicDao;
 
     public List<Map<String, Object>> findAll(int cate, int pageNo, int pageSize, long userid) {
         PageHelper.startPage(pageNo, pageSize);
@@ -59,6 +63,9 @@ public class TopicService {
     }
 
     public boolean insert(Topic topic) throws IllegalAccessException {
+        if(StringUtil.isEmpty(topic.getTitle())||StringUtil.isEmpty(topic.getContent())){
+            return false;
+        }
         return commonDao.insert("t_topic_weixin", JavaBeanUtil.beanToMap(topic)) > 0;
     }
 
@@ -76,5 +83,11 @@ public class TopicService {
             cards.add(card);
         });
         return cards;
+    }
+
+    public List<Topic> getCommentedTopic(long userid,int pageNo){
+        PageHelper.startPage(pageNo, 10);
+        PageHelper.orderBy("create_time desc");
+        return topicDao.getByCommentUserId(userid);
     }
 }
