@@ -1,6 +1,5 @@
 package com.xy.wxxcx;
 
-import com.github.pagehelper.PageHelper;
 import com.xy.wxxcx.filter.ControllFilter;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -9,8 +8,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
-
-import java.util.Properties;
 
 /**
  * @author xy
