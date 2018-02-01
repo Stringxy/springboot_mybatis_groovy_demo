@@ -4,6 +4,7 @@ import com.xy.wxxcx.entity.User
 import org.apache.ibatis.annotations.Insert
 import org.apache.ibatis.annotations.Param
 import org.apache.ibatis.annotations.Select
+import org.apache.ibatis.annotations.Update
 import org.springframework.stereotype.Component
 
 /**
@@ -30,4 +31,10 @@ interface UserDao {
 
     @Select("SELECT username,password,avatar_url as avatarUrl,city,country,gender,language,nick_name as nickName,province,email,openid,id FROM t_user_weixin where id=#{id} limit 0,1")
     User findById(@Param("id")long id)
+
+    @Update(//language=MySQL
+            '''
+            UPDATE t_user_weixin SET openid=#{openid}
+            WHERE id=#{id}''')
+    int bind(User user)
 }

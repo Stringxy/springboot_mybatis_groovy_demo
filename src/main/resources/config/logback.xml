@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <include resource="org/springframework/boot/logging/logback/file-appender.xml" />
+    <property name="type.name" value="test" />
+    <appender name="LOGSTASH" class="com.cwbase.logback.RedisAppender">
+        <source>spring-application</source>
+        <type>${type.name}</type>
+        <host>localhost</host>
+        <key>logstash:weixinxcx</key>
+        <password>123321</password>
+        <tags>test-2</tags>
+        <mdc>true</mdc>
+        <location>true</location>
+        <callerStackIndex>0</callerStackIndex>
+        <!--additionalField添加附加字段 用于head插件显示 -->
+        <additionalField>
+            <key>weixinFirstKey</key>
+            <value>MyValue</value>
+        </additionalField>
+        <additionalField>
+            <key>weixinSecondKey</key>
+            <value>MyOtherValue</value>
+        </additionalField>
+    </appender>
+    <root level="INFO">
+        <appender-ref ref="FILE" />
+        <appender-ref ref="LOGSTASH" />
+    </root>
+</configuration>

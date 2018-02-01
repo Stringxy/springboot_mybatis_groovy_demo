@@ -30,25 +30,25 @@ public class UserService {
     }
 
     public User bindWeixin(User user) throws Exception {
-        String openId = getOpenId(user.getCode());
-        if (StringUtil.isNotEmpty(openId)) {
-            User nowUser = userDao.login(user.getUsername(), user.getPassword());
-            if (null != nowUser && nowUser.getUsername().equals(user.getUsername())) {
-                user.setOpenid(openId);
-                if (userDao.insert(user) < 1) {
-                    return null;
-                } else {
-                    return user;
-                }
+        User nowUser = userDao.login(user.getUsername(), user.getPassword());
+        if (null != nowUser && nowUser.getUsername().equals(user.getUsername())) {
+            nowUser.setOpenid(user.getOpenid());
+            if (userDao.bind(nowUser) < 1) {
+                return null;
+            } else {
+                return user;
             }
         }
         return null;
     }
 
     public User findByOpenId(String code) throws Exception {
-        User nowUser = userDao.findByOpenId(getOpenId(code));
+        String openId = getOpenId(code);
+        User nowUser = userDao.findByOpenId(openId);
         if (null == nowUser) {
-            return null;
+            nowUser = new User();
+            nowUser.setId(0);
+            nowUser.setOpenid(openId);
         }
         return nowUser;
     }
